@@ -1,0 +1,22 @@
+[package]
+name = "iris"
+version = "1.0.0"
+edition = "2021"
+description = "Iris - Mensageira dos Devs. Hub para conectar e executar aplicações com comandos personalizados."
+authors = ["Developer"]
+
+[dependencies]
+eframe = "0.28"
+egui = "0.28"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+dirs = "5.0"
+rfd = "0.14"
+image = "0.25"
+resvg = "0.45"
+egui_extras = { version = "0.28", features = ["image"] }
+
+[profile.release]
+opt-level = 3
+lto = true
+strip = true
