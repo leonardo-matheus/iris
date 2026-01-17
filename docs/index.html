@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Iris - Hub de aplicacoes para desenvolvedores. Execute todos os seus projetos com um clique.">
+    <meta name="keywords" content="iris, developer tools, rust, windows, terminal, process manager">
+    <meta name="author" content="Iris Developer">
+    <title>Iris - Mensageira dos Devs</title>
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Iris - Mensageira dos Devs">
+    <meta property="og:description" content="Hub de aplicacoes para desenvolvedores. Execute todos os seus projetos com um clique.">
+    <meta property="og:image" content="assets/logo.png">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Iris - Mensageira dos Devs">
+    <meta name="twitter:description" content="Hub de aplicacoes para desenvolvedores. Execute todos os seus projetos com um clique.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-card-hover: #1a1a25;
+            --accent-primary: #6366f1;
+            --accent-secondary: #818cf8;
+            --accent-green: #22c55e;
+            --accent-orange: #f59e0b;
+            --accent-red: #ef4444;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --text-muted: #606070;
+            --border-color: #2a2a35;
+            --gradient-rainbow: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(236, 72, 153, 0.05) 0%, transparent 70%);
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-rainbow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--text-primary);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: var(--accent-primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 100px;
+            font-size: 0.875rem;
+            color: var(--accent-secondary);
+            margin-bottom: 2rem;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+        
+        .hero h1 span {
+            background: var(--gradient-rainbow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient-rainbow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+        
+        /* Story Section */
+        .story {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, transparent 0%, rgba(99, 102, 241, 0.03) 50%, transparent 100%);
+        }
+        
+        .story-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .story-quote {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--accent-secondary);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .story-text {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+        
+        .story-text p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .story-code {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+        
+        .story-code pre {
+            font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        .story-code .comment {
+            color: #6a9955;
+        }
+        
+        .story-code .command {
+            color: #dcdcaa;
+        }
+        
+        .story-highlight {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border-left: 4px solid var(--accent-primary);
+            padding: 1.5rem 2rem;
+            border-radius: 0 16px 16px 0;
+            margin: 2rem 0;
+        }
+        
+        .story-highlight strong {
+            color: var(--accent-green);
+            font-size: 1.25rem;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 6rem 2rem;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-4px);
+            border-color: var(--accent-primary);
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        
+        .feature-card p {
+            color: var(--text-secondary);
+        }
+        
+        /* Download Section */
+        .download {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, transparent 0%, rgba(34, 197, 94, 0.03) 50%, transparent 100%);
+        }
+        
+        .download-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .download-card {
+            background: var(--bg-card);
+            border: 2px solid var(--accent-green);
+            border-radius: 24px;
+            padding: 3rem;
+            margin-top: 2rem;
+        }
+        
+        .download-version {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(34, 197, 94, 0.1);
+            border-radius: 100px;
+            font-size: 0.875rem;
+            color: var(--accent-green);
+            margin-bottom: 1.5rem;
+        }
+        
+        .download-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .btn-download {
+            background: var(--accent-green);
+            color: white;
+            font-size: 1.125rem;
+            padding: 1rem 2rem;
+        }
+        
+        .btn-download:hover {
+            background: #16a34a;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.3);
+        }
+        
+        /* Architecture Section */
+        .architecture {
+            padding: 6rem 2rem;
+        }
+        
+        .arch-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .arch-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+        
+        .arch-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+        }
+        
+        .arch-card ul {
+            list-style: none;
+            color: var(--text-secondary);
+        }
+        
+        .arch-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .arch-card li::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: var(--accent-primary);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 4rem 2rem;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-text {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-primary);
+        }
+        
+        .footer-copy {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+            
+            nav {
+                display: none;
+            }
+            
+            .hero {
+                padding: 6rem 1rem 3rem;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .story-quote {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo">
+                <span class="logo-icon">&#127752;</span>
+                <span class="logo-text">Iris</span>
+            </a>
+            <nav>
+                <a href="#features">Funcionalidades</a>
+                <a href="#story">Historia</a>
+                <a href="#download">Download</a>
+                <a href="https://github.com/yourusername/iris" target="_blank">GitHub</a>
+            </nav>
+            <a href="#download" class="btn btn-primary">
+                <span>&#x1F4E5;</span> Download v1.0.0
+            </a>
+        </div>
+    </header>
+    
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>&#127752;</span>
+                Feito com Rust
+            </div>
+            <h1>
+                Seu hub de aplicacoes<br>
+                <span>com um clique</span>
+            </h1>
+            <p>
+                Iris conecta voce as suas aplicacoes. Execute gateway, dashboard, API e 
+                todos os seus projetos em segundos, nao minutos.
+            </p>
+            <div class="hero-buttons">
+                <a href="#download" class="btn btn-primary">
+                    <span>&#x1F4E5;</span> Download Gratuito
+                </a>
+                <a href="https://github.com/yourusername/iris" class="btn btn-secondary" target="_blank">
+                    <span>&#x2B50;</span> Ver no GitHub
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-value">400+</div>
+                    <div class="stat-label">Icones de tecnologias</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">5s</div>
+                    <div class="stat-label">Para iniciar tudo</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">1</div>
+                    <div class="stat-label">Clique necessario</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Story Section -->
+    <section class="story" id="story">
+        <div class="story-content">
+            <div class="story-quote">
+                "Todo dia era a mesma rotina..."
+            </div>
+            <div class="story-text">
+                <p>
+                    Como desenvolvedor senior, eu chegava ao trabalho e precisava executar uma 
+                    sequencia de comandos no terminal para iniciar meu ambiente de desenvolvimento:
+                </p>
+                
+                <div class="story-code">
+                    <pre><span class="comment"># Terminal 1: Gateway</span>
+<span class="command">cd C:\projetos\gateway</span>
+<span class="command">npm install</span>
+<span class="command">npm run dev</span>
+
+<span class="comment"># Terminal 2: Dashboard</span>
+<span class="command">cd C:\projetos\dashboard</span>
+<span class="command">yarn install</span>
+<span class="command">yarn dev</span>
+
+<span class="comment"># Terminal 3: API</span>
+<span class="command">cd C:\projetos\api</span>
+<span class="command">docker-compose up</span>
+
+<span class="comment"># Terminal 4: Microservicos</span>
+<span class="command">cd C:\projetos\services</span>
+<span class="command">cargo run</span></pre>
+                </div>
+                
+                <p>
+                    <strong style="color: var(--accent-orange);">Eram 4 terminais, 12 comandos, e 5 minutos perdidos toda manha.</strong> 
+                    Sem contar quando precisava reiniciar algo...
+                </p>
+                
+                <div class="story-highlight">
+                    <p>
+                        Foi entao que nasceu o <strong>Iris</strong> - um hub centralizado que executa 
+                        todos esses comandos com um unico clique, mantem controle do que esta rodando, 
+                        e me permite parar/reiniciar qualquer aplicacao instantaneamente.
+                    </p>
+                    <br>
+                    <strong>Agora, em vez de 5 minutos, levo 5 segundos.</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <h2>Tudo que voce precisa</h2>
+            <p>Funcionalidades pensadas para desenvolvedores que trabalham com multiplas tecnologias</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">&#127919;</div>
+                <h3>Adicionar Aplicacoes</h3>
+                <p>Configure nome, icone, diretorio de trabalho e comandos de forma simples e intuitiva.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#127912;</div>
+                <h3>+400 Icones</h3>
+                <p>Escolha entre centenas de icones de tecnologias para identificar rapidamente suas aplicacoes.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#9889;</div>
+                <h3>Comandos em Sequencia</h3>
+                <p>Execute npm, yarn, cargo, docker e outros comandos automaticamente em ordem.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128270;</div>
+                <h3>Busca Rapida</h3>
+                <p>Encontre suas aplicacoes instantaneamente com o campo de busca inteligente.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128190;</div>
+                <h3>Persistencia Automatica</h3>
+                <p>Suas configuracoes sao salvas automaticamente e carregadas na proxima vez.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128187;</div>
+                <h3>Terminal Nativo</h3>
+                <p>Abre terminais Windows reais com os comandos em execucao, nao simulados.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128994;</div>
+                <h3>Status Visual</h3>
+                <p>Cards com borda verde indicam aplicacoes em execucao. Veja o estado de tudo.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128230;</div>
+                <h3>Exportar/Importar</h3>
+                <p>Compartilhe suas configuracoes com seu time exportando e importando arquivos JSON.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128260;</div>
+                <h3>Controle Total</h3>
+                <p>Pare, reinicie e gerencie qualquer aplicacao com um clique. Sem perda de controle.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Download Section -->
+    <section class="download" id="download">
+        <div class="download-content">
+            <div class="section-header">
+                <h2>Pronto para comecar?</h2>
+                <p>Baixe agora e comece a economizar tempo todos os dias</p>
+            </div>
+            <div class="download-card">
+                <div class="download-version">
+                    <span>&#128640;</span>
+                    Versao 1.0.0 - Estavel
+                </div>
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Iris para Windows</h3>
+                <p style="color: var(--text-secondary);">
+                    Executavel standalone. Nao requer instalacao.<br>
+                    Compativel com Windows 10/11.
+                </p>
+                <div class="download-buttons">
+                    <a href="https://github.com/yourusername/iris/releases/download/v1.0.0/iris.exe" class="btn btn-download">
+                        <span>&#x1F4E5;</span> Download iris.exe (8 MB)
+                    </a>
+                    <a href="https://github.com/yourusername/iris" class="btn btn-secondary" target="_blank">
+                        <span>&#128187;</span> Compilar do codigo fonte
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Architecture Section -->
+    <section class="architecture">
+        <div class="section-header">
+            <h2>Arquitetura Moderna</h2>
+            <p>Desenvolvido em Rust com arquitetura de microservicos internos</p>
+        </div>
+        <div class="arch-grid">
+            <div class="arch-card">
+                <h3>&#128230; Core</h3>
+                <ul>
+                    <li>Modelos de dados (AppConfig, AppState)</li>
+                    <li>Gerenciamento de configuracao</li>
+                    <li>Persistencia em JSON</li>
+                </ul>
+            </div>
+            <div class="arch-card">
+                <h3>&#9881; Services</h3>
+                <ul>
+                    <li>Process Manager - ciclo de vida</li>
+                    <li>Icon Service - cache de SVGs</li>
+                    <li>Operacoes assincronas</li>
+                </ul>
+            </div>
+            <div class="arch-card">
+                <h3>&#127912; UI</h3>
+                <ul>
+                    <li>Componentes reutilizaveis</li>
+                    <li>Dialogs e modais</li>
+                    <li>Tema escuro moderno</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">&#127752;</div>
+            <p class="footer-text">
+                Iris - Mensageira dos Devs<br>
+                <em>"Como a deusa Iris conectava os deuses aos mortais, este app conecta voce as suas aplicacoes."</em>
+            </p>
+            <div class="footer-links">
+                <a href="https://github.com/yourusername/iris">GitHub</a>
+                <a href="https://github.com/yourusername/iris/issues">Reportar Bug</a>
+                <a href="https://github.com/yourusername/iris/releases">Releases</a>
+            </div>
+            <p class="footer-copy">
+                Feito com &#10084; em Rust | MIT License | 2024-2026
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

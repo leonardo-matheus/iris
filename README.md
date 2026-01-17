@@ -1,67 +1,102 @@
-# 🌈 Iris - Mensageira dos Devs
-
-<div align="center">
+﻿<div align="center">
   <img src="assets/logo.png" alt="Iris Logo" width="128" height="128">
   
-  **Conectando desenvolvedores às suas aplicações**
+  # Iris
+  ### Dev Environment Launcher
   
-  *Iris é a deusa grega do arco-íris e mensageira dos deuses, servindo como ponte entre o Olimpo e os mortais, entregando comandos e mensagens com velocidade.*
+  **Inicie todos os seus projetos com um clique**
+  
+  [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/leonardo-matheus/iris/releases)
+  [![Rust](https://img.shields.io/badge/rust-1.70%2B-orange.svg)](https://www.rust-lang.org/)
+  [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+  [![Platform](https://img.shields.io/badge/platform-Windows-lightgrey.svg)](https://www.microsoft.com/windows)
+  
+  <br>
+  
+  <img src="docs/assets/image.png" alt="Iris Screenshot" width="800">
+  
+  <br>
+  
+  *Na mitologia grega, Iris é a deusa do arco-íris e mensageira dos deuses — a ponte entre o Olimpo e os mortais.*
 </div>
 
 ---
 
-Assim como a deusa Iris levava mensagens entre os deuses e os mortais, este aplicativo serve como **ponte entre você e suas aplicações**, executando comandos e conectando seus projetos de forma rápida e elegante.
+##  A História por trás do Iris
 
-Desenvolvido em **Rust** para desenvolvedores que trabalham com múltiplas tecnologias e precisam de um hub centralizado para gerenciar e lançar suas aplicações.
+> **"Todo dia era a mesma rotina..."**
 
-## ✨ Funcionalidades
+Como desenvolvedor senior, eu chegava ao trabalho e precisava executar uma sequência de comandos no terminal para iniciar meu ambiente de desenvolvimento:
 
-- 🎯 **Adicionar Aplicações**: Configure suas aplicações com nome, ícone, diretório e comandos
-- 🎨 **Ícones de Tecnologias**: Escolha entre centenas de ícones de linguagens e frameworks
-- 📝 **Comandos Personalizáveis**: Adicione quantos comandos forem necessários
-- 🔀 **Reordenação**: Reorganize a ordem dos comandos facilmente
-- 🔍 **Busca**: Encontre rapidamente suas aplicações
-- 💾 **Persistência**: Configurações salvas automaticamente
-- 💻 **Terminal Nativo**: Abre um novo terminal Windows e executa os comandos em sequência
-- 🎮 **Controle de Processos**: 
-  - ▶ **Executar**: Inicia a aplicação em um novo terminal
-  - ■ **Stop**: Para a aplicação em execução
-  - ↻ **Restart**: Reinicia a aplicação
-- 🟢 **Indicação Visual**: Cards ficam verdes quando a aplicação está rodando
-- ⚡ **Suporte a Scripts Interativos**: Detecta automaticamente inputs para scripts `.bat`
-- 📤 **Exportar/Importar**: Compartilhe suas configurações com outros devs
+```bash
+# Terminal 1: Gateway
+cd C:\projetos\gateway
+npm install
+npm run dev
 
-## 📸 Screenshot
+# Terminal 2: Dashboard
+cd C:\projetos\dashboard
+yarn install
+yarn dev
 
-```
-┌────────────────────────────────────────────────────────────┐
-│  🌈 Iris - Mensageira dos Devs              [➕ Nova Aplicação]  │
-├────────────────────────────────────────────────────────────┤
-│                                                                │
-│  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐  │
-│  │ ⚛️ React App    │  │ 🐍 Python API  │  │ 🦀 Rust Server │  │
-│  │ 📁 /projetos    │  │ 📁 /api        │  │ 📁 /server     │  │
-│  │ ⚡ 2 comandos   │  │ ⚡ 3 comandos   │  │ ⚡ 2 comandos   │  │
-│  │                 │  │                 │  │                 │  │
-│  │ [▶ Executar]    │  │ [■ Stop][↻]    │  │ [▶ Executar]    │  │
-│  └─────────────────┘  └─────────────────┘  └─────────────────┘  │
-│        (borda verde = executando)                              │
-│                                                                │
-├────────────────────────────────────────────────────────────┤
-│  📦 3 aplicações   ▶ 1 em execução         Feito com ❤ em Rust  │
-└────────────────────────────────────────────────────────────┘
+# Terminal 3: API
+cd C:\projetos\api
+docker-compose up
+
+# Terminal 4: Microserviços
+cd C:\projetos\services
+cargo run
 ```
 
-## 📦 Instalação
+**Eram 4 terminais, 12 comandos, e 5 minutos perdidos toda manhã.** Sem contar quando precisava reiniciar algo...
 
-### Pré-requisitos
-- [Rust](https://rustup.rs/) instalado
+Foi então que nasceu o **Iris** - um hub centralizado que executa todos esses comandos com um único clique, mantém controle do que está rodando, e me permite parar/reiniciar qualquer aplicação instantaneamente.
 
-### Compilar e Executar
+**Agora, em vez de 5 minutos, levo 5 segundos.**
+
+---
+
+##  Funcionalidades
+
+| Feature | Descrição |
+|---------|-----------|
+|  **Adicionar Aplicações** | Configure nome, ícone, diretório e comandos |
+|  **+400 Ícones** | Escolha entre centenas de ícones de tecnologias |
+|  **Comandos Personalizáveis** | Adicione quantos comandos forem necessários |
+|  **Reordenação** | Reorganize a ordem dos comandos com drag & drop |
+|  **Busca Rápida** | Encontre suas aplicações instantaneamente |
+|  **Persistência** | Configurações salvas automaticamente |
+|  **Terminal Nativo** | Abre terminais Windows reais |
+|  **Status Visual** | Cards verdes indicam apps em execução |
+|  **Scripts Interativos** | Suporte a inputs automáticos para .bat |
+|  **Exportar/Importar** | Compartilhe configs com seu time |
+
+###  Controles de Processo
+
+-  **Executar**: Inicia a aplicação em um novo terminal
+-  **Stop**: Para a aplicação em execução (mata processos filhos)
+-  **Restart**: Reinicia a aplicação com um clique
+
+---
+
+---
+
+##  Instalação
+
+### Download Direto (Recomendado)
+
+Baixe a última versão do executável:
+
+ **[Download Iris v1.0.0](https://github.com/leonardo-matheus/iris/releases/download/v1.0.0/iris.exe)**
+
+### Compilar do Código Fonte
+
+**Pré-requisitos:**
+- [Rust](https://rustup.rs/) 1.70 ou superior
 
 ```bash
 # Clone o repositório
-git clone <repo-url>
+git clone https://github.com/leonardo-matheus/iris.git
 cd iris
 
 # Executar em modo desenvolvimento
@@ -73,120 +108,218 @@ cargo build --release
 
 O executável será gerado em `target/release/iris.exe`
 
-## 🚀 Como Usar
+---
 
-1. **Adicionar uma aplicação**: Clique em "➕ Nova Aplicação"
-2. **Configure**:
-   - 🎨 Escolha um ícone para identificar a aplicação (React, Python, Docker, etc.)
-   - 📝 Defina o nome da aplicação
-   - 📁 Selecione a pasta do projeto (Working Directory)
-   - ⚡ Adicione os comandos na ordem desejada
-3. **Executar**: Clique em "▶ Executar" no card da aplicação
+##  Como Usar
 
-### Exemplos de Configuração
+### 1 Adicionar uma aplicação
 
-**⚛️ Aplicação React:**
-```
+1. Clique em **" Nova Aplicação"**
+2. Escolha um **ícone** (React, Python, Docker, etc.)
+3. Defina o **nome** da aplicação
+4. Selecione a **pasta do projeto**
+5. Adicione os **comandos** na ordem desejada
+6. Clique em **" Criar"**
+
+### 2 Executar
+
+Clique em **" Executar"** no card da aplicação. Um terminal Windows será aberto executando os comandos em sequência.
+
+### 3 Gerenciar
+
+- **Parar**: Clique em **" Stop"** para encerrar todos os processos
+- **Reiniciar**: Clique em **" Restart"** para parar e iniciar novamente
+- **Editar**: Clique em **"..."** para modificar a configuração
+
+---
+
+##  Exemplos de Configuração
+
+<details>
+<summary><b> Aplicação React</b></summary>
+
+```yaml
 Ícone: react
-Pasta: C:\projetos\minha-app-react
+Nome: Frontend Dashboard
+Pasta: C:\projetos\dashboard
 Comandos:
   1. npm install
   2. npm run dev
 ```
+</details>
 
-**🐍 API Python:**
-```
+<details>
+<summary><b> API Python + FastAPI</b></summary>
+
+```yaml
 Ícone: python
-Pasta: C:\projetos\minha-api
+Nome: API Backend
+Pasta: C:\projetos\api
 Comandos:
   1. pip install -r requirements.txt
-  2. python main.py
+  2. uvicorn main:app --reload
 ```
+</details>
 
-**🦀 Servidor Rust:**
-```
+<details>
+<summary><b> Servidor Rust</b></summary>
+
+```yaml
 Ícone: rust
-Pasta: C:\projetos\meu-servidor
+Nome: Gateway Service
+Pasta: C:\projetos\gateway
 Comandos:
   1. cargo build --release
-  2. cargo run
+  2. cargo run --release
 ```
+</details>
 
-**🍃 Projeto Spring (com seleção de versão Node):**
+<details>
+<summary><b> Docker Compose</b></summary>
+
+```yaml
+Ícone: docker
+Nome: Infraestrutura
+Pasta: C:\projetos\infra
+Comandos:
+  1. docker-compose up -d
 ```
+</details>
+
+<details>
+<summary><b> Spring Boot (com seleção de versão Node)</b></summary>
+
+```yaml
 Ícone: spring
+Nome: Spring App
 Pasta: C:\projetos\spring-app
 Comandos:
-  1. setPath.bat      ← Script interativo
-  2. 18.12.0          ← Input automático (versão do Node)
+  1. setPath.bat      # Script interativo
+  2. 18.12.0          # Input automático (versão do Node)
   3. mvn spring-boot:run
 ```
+</details>
 
-## 🗂️ Onde ficam as configurações?
+---
 
-As configurações são salvas em:
+##  Arquitetura
+
+O Iris foi desenvolvido seguindo uma arquitetura de **microserviços internos** em Rust:
+
 ```
-%APPDATA%\iris\config.json
+src/
+ main.rs              # Ponto de entrada
+ lib.rs               # Biblioteca e exports
+
+ core/                #  Núcleo da aplicação
+    mod.rs
+    models.rs        # Estruturas de dados (AppConfig, AppState)
+    config.rs        # Gerenciamento de configuração
+
+ services/            #  Serviços de negócio
+    mod.rs
+    process_manager.rs  # Gerenciamento de processos
+    icon_service.rs     # Cache e renderização de ícones
+
+ ui/                  #  Interface gráfica
+    mod.rs
+    app_hub.rs       # Aplicação principal
+    theme.rs         # Cores e estilos
+    components/      # Componentes reutilizáveis
+       app_card.rs
+       header.rs
+       footer.rs
+       empty_state.rs
+    dialogs/         # Modais e diálogos
+        app_modal.rs
+        delete_confirm.rs
+
+ utils.rs             #  Funções utilitárias
 ```
 
-## 📤 Exportar e Importar Configurações
+### Tecnologias
 
-Iris permite **compartilhar suas configurações** com outros desenvolvedores!
+| Tecnologia | Uso |
+|------------|-----|
+| **[Rust](https://www.rust-lang.org/)** | Linguagem principal |
+| **[egui/eframe](https://github.com/emilk/egui)** | Interface gráfica imediata |
+| **[resvg](https://github.com/RazrFalcon/resvg)** | Renderização de SVG |
+| **[serde](https://serde.rs/)** | Serialização JSON |
+| **[rfd](https://github.com/PolyMeilex/rfd)** | Diálogos de arquivo nativos |
+
+---
+
+##  Exportar e Importar
+
+Compartilhe suas configurações com seu time!
 
 ### Exportar
-1. Clique no botão ⚙️ no canto superior direito
-2. Selecione "📤 Exportar configurações"
-3. Escolha onde salvar o arquivo `iris-config.json`
+1. Clique no botão **** no header
+2. Selecione **" Exportar configurações"**
+3. Salve o arquivo `iris-config.json`
 
 ### Importar
-1. Clique no botão ⚙️ no canto superior direito
-2. Selecione "📥 Importar configurações"
-3. Selecione o arquivo `iris-config.json` recebido
-4. As aplicações serão **adicionadas** às suas existentes
+1. Clique no botão **** no header
+2. Selecione **" Importar configurações"**
+3. Selecione o arquivo `.json`
+4. As aplicações serão **adicionadas** às existentes
 
-> 💡 **Dica**: Você pode compartilhar o arquivo de configuração com seu time para padronizar os projetos!
+---
 
-## 🎨 Ícones Disponíveis
+##  Ícones Disponíveis
 
-Iris vem com **centenas de ícones** de tecnologias, incluindo:
+Iris inclui **+400 ícones** de tecnologias do [Devicon](https://devicon.dev/):
 
 | Categoria | Exemplos |
 |-----------|----------|
-| **Frontend** | react, angular, vue, svelte, nextjs |
-| **Backend** | nodejs, python, java, spring, dotnet |
-| **Linguagens** | typescript, rust, go, kotlin, swift |
+| **Frontend** | react, angular, vue, svelte, nextjs, nuxt |
+| **Backend** | nodejs, express, fastapi, spring, django |
+| **Linguagens** | typescript, python, rust, go, java, kotlin |
 | **DevOps** | docker, kubernetes, aws, azure, jenkins |
-| **Banco de Dados** | postgresql, mongodb, mysql, redis |
-| **Mobile** | flutter, react, android, ios |
+| **Databases** | postgresql, mongodb, mysql, redis, sqlite |
+| **Mobile** | flutter, react-native, android, ios, swift |
 
-Digite o nome da tecnologia no filtro para encontrar o ícone!
+---
 
-## 🛠️ Tecnologias Utilizadas
+##  Configurações
 
-- **[Rust](https://www.rust-lang.org/)** - Linguagem de programação
-- **[egui/eframe](https://github.com/emilk/egui)** - Interface gráfica
-- **[resvg](https://github.com/RazrFalcon/resvg)** - Renderização de SVG
-- **[serde](https://serde.rs/)** - Serialização JSON
-- **[rfd](https://github.com/PolyMeilex/rfd)** - Diálogos de arquivo nativos
+As configurações são salvas automaticamente em:
 
-## 🤝 Contribuindo
+```
+Windows: %APPDATA%\iris\config.json
+```
 
-Contribuições são bem-vindas! Sinta-se à vontade para:
+---
 
-1. Fazer um Fork do projeto
-2. Criar uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+##  Contribuindo
+
+Contribuições são bem-vindas! 
+
+1. Fork o projeto
+2. Crie sua branch (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add: Amazing Feature'`)
 4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abrir um Pull Request
+5. Abra um Pull Request
 
-## 📝 Licença
+---
 
-Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
+##  Licença
+
+Distribuído sob a licença MIT. Veja [LICENSE](LICENSE) para mais informações.
+
+---
+
+##  Agradecimentos
+
+- [Devicon](https://devicon.dev/) pelos ícones de tecnologias
+- [egui](https://github.com/emilk/egui) pela biblioteca de UI incrível
+- Comunidade Rust pelo ecossistema fantástico
 
 ---
 
 <div align="center">
-  <sub>Feito com ❤️ em Rust por desenvolvedores, para desenvolvedores.</sub>
   <br>
-  <sub>🌈 <i>"Como a deusa Iris conectava os deuses aos mortais, este app conecta você às suas aplicações."</i></sub>
+  <sub>Feito com ❤️ em Rust por desenvolvedores, para desenvolvedores.</sub>
+  <br><br>
+  <b>⭐ Se este projeto te ajudou, considere dar uma estrela!</b>
 </div>
